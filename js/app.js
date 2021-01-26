@@ -55,7 +55,11 @@ class UI {
         divAlerta.classList.add("text-center", "alert");
 
         if(tipo === "error") {
-            divAlerta.classList.add('alert-danger');
+            if(document.querySelector('div .alert-danger')) {
+                return;
+            } else {
+                divAlerta.classList.add('alert-danger');
+            }
         } else {
             divAlerta.classList.add('alert-success');
         }
@@ -65,7 +69,7 @@ class UI {
 
         // Insertar en el HTML
         fragment.appendChild(divAlerta);
-        document.querySelector(".primario").insertBefore(divAlerta, formulario);
+        document.querySelector(".primario").insertBefore(fragment, formulario);
 
         setTimeout(() => {
             divAlerta.remove();
@@ -100,8 +104,9 @@ class UI {
             
             // Agregar al HTML
             fragment.appendChild(nuevoGasto);
-            gastoListado.appendChild(fragment);
         });
+
+        gastoListado.appendChild(fragment);
     }
 
     actualizarRestante(restante) {
